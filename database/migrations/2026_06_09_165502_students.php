@@ -39,6 +39,13 @@ return new class extends Migration
                 'E',
                 'F'
             ]);
+            $table->enum('year_level', [
+                '1st Year',
+                '2nd Year',
+                '3rd Year',
+                '4th Year'
+            ]);
+            
 
             $table->string('password');
 

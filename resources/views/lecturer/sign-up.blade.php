@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('student.register.store') }}">
+    <form method="POST" action="{{ route('lecturer.register.store') }}">
         @csrf
         <!--    Username -->
         <div>
@@ -15,27 +15,14 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Student number-->
+        <!-- Staff number-->
         <div class="mt-4">
-            <x-input-label for="student_number" :value="__('Student Number')" />
-            <x-text-input id="student_number" class="block mt-1 w-full" type="text" name="student_number" :value="old('student_number')" required autofocus autocomplete="student_number" />
-            <x-input-error :messages="$errors->get('student_number')" class="mt-2" />
+            <x-input-label for="staff" :value="__('Staff Number')" />
+            <x-text-input id="staff" class="block mt-1 w-full" type="text" name="staff" :value="old('staff')" required autofocus autocomplete="staff" />
+            <x-input-error :messages="$errors->get('staff')" class="mt-2" />
         </div>
 
-        <!--Group-->
-        <div class="mt-4">
-            <x-input-label for="group" :value="__('Group')" />
-            <select id="group" name="group" class="block mt-1 w-full" required>
-                <option value="">  </option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-            </select>
-            <x-input-error :messages="$errors->get('group')" class="mt-2" />
-        </div>
+        
 
         <!-- school -->
         <div class="mt-4">
@@ -50,10 +37,10 @@
             <x-input-error :messages="$errors->get('school')" class="mt-2" />
         </div>
 
-        <!-- course -->
+        <!-- Department -->
         <div class="mt-4">
-            <x-input-label for="course" :value="__('Course')" />
-            <select id="course" name="course" class="block mt-1 w-full" required>
+            <x-input-label for="department" :value="__('Department')" />
+            <select id="department" name="department" class="block mt-1 w-full" required>
                 <option value="">  </option>
                 <option value="ICS">ICS</option>
                 <option value="BBIT">BBIT</option>
@@ -61,20 +48,7 @@
                 <option value="Philisophy">Philisophy</option>
                 <option value="CNA">CNA</option>
             </select>
-            <x-input-error :messages="$errors->get('course')" class="mt-2" />
-        </div> 
-        
-        <!-- year of study -->
-        <div class="mt-4">
-            <x-input-label for="year_of_study" :value="__('Year of Study')" />
-            <select id="year_of_study" name="year_of_study" class="block mt-1 w-full" required>
-                <option value="">  </option>
-                <option value="1">1</option>    
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <x-input-error :messages="$errors->get('year_of_study')" class="mt-2" />
+            <x-input-error :messages="$errors->get('department')" class="mt-2" />
         </div>  
 
 
@@ -93,7 +67,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('student.login') }}">
+            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('lecturer.login') }}">
                 {{ __('Already registered?') }}
             </a>
 
@@ -103,3 +77,4 @@
         </div>
     </form>
 </x-guest-layout>
+

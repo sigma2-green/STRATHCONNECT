@@ -1,21 +1,20 @@
 <?php
- 
+
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Student extends Authenticatable
+class Lecturer extends Authenticatable
 {
     use Notifiable;
 
     protected $fillable = [
         'username',
         'email',
-        'student_number',
+        'staff_number',
         'school',
-        'course',
-        'group',
+        'department',
         'password',
     ];
 
@@ -23,10 +22,4 @@ class Student extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    public function groups()
-{
-    return $this->belongsToMany(Group::class);
-}
-
 }

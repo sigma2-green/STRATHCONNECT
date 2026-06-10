@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Lecturer;
 
 return [
 
@@ -47,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'students',
         ],
+        'lecturer' => [
+            'driver' => 'session',
+            'provider' => 'lecturers',
+        ],
 
     ],
 
@@ -81,6 +86,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'lecturers' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_LECTURER_MODEL', Lecturer::class),
+        ],
     ],
 
     /*
