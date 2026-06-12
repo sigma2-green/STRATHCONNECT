@@ -13,48 +13,26 @@ Schema::create('groups', function (Blueprint $table) {
 
     $table->string('name');
 
-    $table->enum('type', [
-        'school',
-        'course',
-        'year',
-        'class'
-    ]);
+    $table->enum('school', ['SCES','SBS','SLS','SHS']);
 
-    $table->enum('school', [
-        'SCES',
-        'SBS',
-        'SLS',
-        'SHS'
-    ]);
+    $table->enum('course', ['ICS','BBIT','CNA','LAW','Philosophy']);
 
-    $table->enum('course', [
-        'ICS',
-        'BBIT',
-        'CNA',
-        'LAW',
-        'Philisophy'
-    ])->nullable();
+    $table->enum('year_level', ['1st Year','2nd Year','3rd Year','4th Year']);
 
-    $table->enum('year_level', [
-        '1st Year',
-        '2nd Year',
-        '3rd Year',
-        '4th Year'
-    ])->nullable();
-
-    $table->enum('student_group', [
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F'
-    ])->nullable();
+    $table->enum('class_group', ['A','B','C','D','E','F']);
 
     $table->timestamps();
+
+    $table->unique([
+        'school',
+        'course',
+        'year_level',
+        'class_group'
+    ]);
+
 });
 
-    }
+}
 
     public function down(): void
     {

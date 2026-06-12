@@ -13,11 +13,11 @@ class Group extends Model
         'school',
         'course',
         'year_level',
-        'student_group'
+        'student_group',
     ];
 
     public function students()
 {
-    return $this->belongsToMany(Student::class);
+    return $this->belongsToMany(Student::class, 'group_student');
 }
 }

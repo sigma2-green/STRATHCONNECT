@@ -8,50 +8,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
+    $table->id();
 
-            $table->string('username')->unique();
-            $table->string('email')->unique();
+    $table->string('username')->unique();
+    $table->string('email')->unique();
+    $table->string('student_number')->unique();
 
-            $table->string('student_number')->unique();
+    $table->enum('school', ['SCES','SBS','SLS','SHS']);
+    $table->enum('course', ['ICS','BBIT','BCOM','CNA','LAW','Philosophy']);
+    $table->enum('year_level', ['1st Year','2nd Year','3rd Year','4th Year']);
 
-            // ENUMS (controlled options)
-            $table->enum('school', [
-                'SCES',
-                'SBS',
-                'SLS',
-                'SHS',
-            ]);
+    $table->string('password');
 
-            $table->enum('course', [
-                'ICS',
-                'BBIT',
-                'CNA',
-                'LAW', 
-                'Philisophy'
-            ]);
-
-            $table->enum('group', [
-                'A',
-                'B',
-                'C',
-                'D',
-                'E',
-                'F'
-            ]);
-            $table->enum('year_level', [
-                '1st Year',
-                '2nd Year',
-                '3rd Year',
-                '4th Year'
-            ]);
-            
-
-            $table->string('password');
-
-            $table->rememberToken();
-            $table->timestamps();
-        });
+    $table->rememberToken();
+    $table->timestamps();
+});
     }
 
     public function down(): void

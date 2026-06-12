@@ -16,6 +16,7 @@ class Student extends Authenticatable
         'school',
         'course',
         'group',
+        'year_level',
         'password',
     ];
 
@@ -26,7 +27,7 @@ class Student extends Authenticatable
 
     public function groups()
 {
-    return $this->belongsToMany(Group::class);
+    return $this->belongsToMany(Group::class, 'group_student');
 }
 
 }

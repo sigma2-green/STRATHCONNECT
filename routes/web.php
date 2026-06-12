@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentRegisterController;
 use App\Http\Controllers\StudentLoginController;
@@ -45,8 +46,13 @@ Route::middleware('guest:student')->group(function () {
 Route::middleware('auth:student')->group(function () {
 
     Route::get('/student/dashboard', function () {
-        return view('student.dashboard');
-    })->name('student.dashboard');
+
+    $student = Auth::guard('student')->user();
+
+    $groups = $student->groups; // assuming relationship exists
+
+    return view('student.dashboard', compact('groups'));
+})->name('student.dashboard');
 
     Route::post('/student/logout', [StudentLoginController::class, 'logout'])
         ->name('student.logout');
