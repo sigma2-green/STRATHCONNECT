@@ -7,6 +7,10 @@ use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 
+Route::get('/login', function () {
+    return redirect('/student/login');
+})->name('login');
+
 /*
 |--------------------------------------------------------------------------
 | PUBLIC
@@ -93,6 +97,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('students', [DashboardController::class, 'students'])->name('students'); 
+        Route::get('students/{id}/edit', [DashboardController::class, 'edit'])->name('students.edit');  
+        Route::put('students/{id}', [DashboardController::class, 'update'])->name('students.update');
+        Route::delete('students/{id}', [DashboardController::class, 'destroy'])->name('students.destroy');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     });
 });

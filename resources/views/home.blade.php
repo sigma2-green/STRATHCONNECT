@@ -37,8 +37,16 @@
 
             </a>
 
-            
-    
+            <!-- ADMIN LOGIN - ADD THIS -->
+            <a href="{{ route('admin.login') }}"
+               class="w-44 h-40 flex flex-col items-center justify-center rounded-2xl bg-gray-800 text-white shadow-lg hover:scale-105 transition">
+
+                <span class="text-3xl mb-2">👑</span>
+                <span class="font-bold text-lg">Admin</span>
+                <span class="text-xs opacity-80 mt-1">Staff access only</span>
+
+            </a>
+
 
 
         </div>
