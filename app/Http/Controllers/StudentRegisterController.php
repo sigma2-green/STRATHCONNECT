@@ -18,12 +18,12 @@ class StudentRegisterController extends Controller
         $request->validate([
             'username' => ['required', 'string', 'max:255', 'unique:students'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:students'],
-            'student_number' => ['required', 'string', 'max:255', 'unique:students'],
+            'student_number' => ['required', 'string', 'min:6', 'max:6', 'unique:students'],
 
             'school' => ['required', 'in:SCES,SBS,SLS,SHS'],
             'course' => ['required', 'in:ICS,BBIT,BCOM,CNA,LAW,Philosophy'],
             'year_level' => ['required', 'in:1st Year,2nd Year,3rd Year,4th Year'],
-            'group'  => ['required', 'in:A,B,C,D,E,F'],
+            'class_group' => 'required|in:A,B,C,D,E,F',
 
             'password' => ['required', 'confirmed', 'min:6'],
         ]);
@@ -36,26 +36,44 @@ class StudentRegisterController extends Controller
         
             'school' => $request->school,
             'course' => $request->course,
-            'group' => $request->group,
+            'class_group' => $request->class_group,
             'year_level' => $request->year_level,
 
             'password' => Hash::make($request->password),
         ]);
       // Find the matching group 
-        $group = Group::where('school', $request->school)
-    ->where('course', $request->course)
-    ->where('year_level', $request->year_level)
-    ->where('student_group', $request->group)
-    ->first();
-     
-    // Assign the student to the appropriate group
-    if (!$group) {
-    return back()->withErrors([
-        'group' => 'The selected group does not exist.'
-    ])->withInput();
-}
+        $groups = Group::where(function ($query) use ($request) {
 
-$student->groups()->attach($group->id);
+        $query->where(function ($q) use ($request) {
+           $q->where('type', 'school')
+             ->where('school', $request->school);
+      })
+
+    ->orWhere(function ($q) use ($request) {
+        $q->where('type', 'course')
+          ->where('school', $request->school)
+          ->where('course', $request->course);
+    })
+
+    ->orWhere(function ($q) use ($request) {
+        $q->where('type', 'year')
+          ->where('school', $request->school)
+          ->where('course', $request->course)
+          ->where('year_level', $request->year_level);
+    })
+
+    ->orWhere(function ($q) use ($request) {
+        $q->where('type', 'class')
+          ->where('school', $request->school)
+          ->where('course', $request->course)
+          ->where('year_level', $request->year_level)
+          ->where('class_group', $request->class_group);
+    });
+
+ })->get();
+
+ $student->groups()->attach($groups->pluck('id'));
+
 
         
 

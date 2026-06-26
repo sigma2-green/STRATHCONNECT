@@ -9,30 +9,94 @@ class GroupSeeder extends Seeder
 {
     public function run(): void
     {
-        $data = [
+        $schools = [
+
             'SCES' => ['ICS', 'BBIT', 'CNA'],
-            'SBS'  => ['BCOM'],
-            'SLS'  => ['LAW'],
-            'SHS'  => ['Philosophy'],
+
+            'SBS' => ['BCOM'],
+
+            'SLS' => ['LAW'],
+
+            'SHS' => ['Philosophy']
+
         ];
 
-        $years = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
-        $letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+        $years = [
+            '1st Year',
+            '2nd Year',
+            '3rd Year',
+            '4th Year'
+        ];
 
-        foreach ($data as $school => $courses) {
+        $classes = [
+            'A','B','C','D','E','F'
+        ];
+
+        foreach ($schools as $school => $courses) {
+
+            /*
+             |---------------------------------------
+             | SCHOOL GROUP
+             |---------------------------------------
+             */
+
+            Group::firstOrCreate([
+                'type' => 'school',
+                'school' => $school,
+            ], [
+                'name' => $school,
+            ]);
+
             foreach ($courses as $course) {
-                foreach ($years as $year) {
-                    foreach ($letters as $letter) {
 
-                        Group::create([
-                            'name' => "{$school}-{$course}-{$year}-{$letter}",
+                /*
+                 |---------------------------------------
+                 | COURSE GROUP
+                 |---------------------------------------
+                 */
+
+                Group::firstOrCreate([
+                    'type' => 'course',
+                    'school' => $school,
+                    'course' => $course,
+                ], [
+                    'name' => "$school-$course",
+                ]);
+
+                foreach ($years as $year) {
+
+                    /*
+                     |---------------------------------------
+                     | YEAR GROUP
+                     |---------------------------------------
+                     */
+
+                    Group::firstOrCreate([
+                        'type' => 'year',
+                        'school' => $school,
+                        'course' => $course,
+                        'year_level' => $year,
+                    ], [
+                        'name' => "$school-$course-$year",
+                    ]);
+
+                    foreach ($classes as $class) {
+
+                        /*
+                         |---------------------------------------
+                         | CLASS GROUP
+                         |---------------------------------------
+                         */
+
+                        Group::firstOrCreate([
                             'type' => 'class',
                             'school' => $school,
                             'course' => $course,
                             'year_level' => $year,
-                            'student_group' => $letter,
+                            'class_group' => $class,
+                        ], [
+                            'name' => "$school-$course-$year-$class",
                         ]);
-
                     }
                 }
             }

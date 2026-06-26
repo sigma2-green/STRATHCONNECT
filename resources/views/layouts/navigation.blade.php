@@ -9,14 +9,14 @@
 
                 @auth('student')
                     <!-- USER AVATAR -->
-                    <div class="w-12 aspect-square rounded-full bg-blue-600 text-white text-lg font-bold uppercase flex items-center justify-center flex-shrink-0">
-                        {{ strtoupper(substr(Auth::guard('student')->user()->username, 0, 1)) }}
+                    <div class="  text-white text-lg font-bold uppercase " style="font-family: 'Times New Roman', Times, serif;">
+                        {{ strtoupper(substr(Auth::guard('student')->user()->username,0,12)) }}
                     </div>
                 @else
                     <!-- LOGO -->
                     <a href="{{ route('home') }}"
                        class="text-xl font-bold text-blue-600 dark:text-blue-400">
-                        StrathConnect
+                        STRATHCONNECT
                     </a>
                 @endauth
             </div>
@@ -24,15 +24,11 @@
             <!-- RIGHT SIDE -->
             <div class="hidden md:flex space-x-3 items-center">
 
-                <!-- PUBLIC LINKS -->
-                <a href="#"
-                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                    Announcements
-                </a>
+            
+               
 
-                <a href="#"
-                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                    Events
+                <a href="{{ route('event.index') }}"class="relative text-gray-600 dark:text-gray-300 hover:text-blue-600 border-black border-2 rounded-lg px-3 py-1">
+                     Events
                 </a>
 
             
@@ -40,12 +36,19 @@
                 <!-- AUTHENTICATED STUDENT LINKS -->
                 @auth('student')
 
+                    <a href="{{ route('clubs.index') }}"
+                       class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
+                        Clubs
+                    </a>
+
                     <a href="{{ route('student.dashboard') }}"
                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                         Dashboard
                     </a>
 
-                    <a href="{{ route('profile.edit') }}"
+
+
+                    <a href="{{ route('profile.edit') }} "
                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                         Profile
                     </a>
@@ -71,11 +74,11 @@
                         Sign Up 
                     </a> 
                 @endguest
-            
 
+         
                 
-
-
+                
+            
 
             </div>
 

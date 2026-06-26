@@ -24,8 +24,8 @@
 
         <!--Group-->
         <div class="mt-4">
-            <x-input-label for="group" :value="__('Group')" />
-            <select id="group" name="group" class="block mt-1 w-full" required>
+            <x-input-label for="class_group" :value="__('Group')" />
+            <select id="class_group" name="class_group" class="block mt-1 w-full" required>
                 <option value="">  </option>
                 <option value="A">A</option>
                 <option value="B">B</option>

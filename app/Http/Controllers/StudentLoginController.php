@@ -25,6 +25,8 @@ class StudentLoginController extends Controller
 
             $request->session()->regenerate();
 
+            
+
             return redirect()->route('student.dashboard')->with('success', 'Login successful!');
         }
 

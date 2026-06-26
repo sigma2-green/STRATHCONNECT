@@ -5,17 +5,15 @@
 <!-- HERO VIDEO -->
 <div class="mt-10 w-full">
     <div class="relative overflow-hidden rounded-3xl shadow-2xl">
-        
+        <!-- Can I have an appealing home page no video -->
+        <div class="p-10 text-center">
 
-        <!-- OVERLAY -->
-        <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-4">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-                Welcome to StrathConnect
-            </h1>
-            <p class="text-lg md:text-xl text-gray-200 mb-6">
-                Your gateway to campus news, events, and student groups
-            </p>
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to STRATHCONNECT</h1>
+            <p class="text-lg text-gray-600 mb-6">Access your groups, courses, and more.</p>
+        </div>
+                  
 
+ 
     
 
     </div>

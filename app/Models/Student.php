@@ -15,7 +15,7 @@ class Student extends Authenticatable
         'student_number',
         'school',
         'course',
-        'group',
+        'class_group',
         'year_level',
         'password',
     ];
@@ -25,9 +25,34 @@ class Student extends Authenticatable
         'remember_token',
     ];
 
-    public function groups()
+   public function groups()
 {
-    return $this->belongsToMany(Group::class, 'group_student');
+    return $this->belongsToMany(
+        Group::class,
+        'group_student',
+        'student_id',
+        'group_id'
+    );
 }
+
+public function posts()
+
+{
+    return $this->hasMany(Post::class);
+}
+
+public function clubs()
+{
+    return $this->belongsToMany(
+        Club::class,
+        'club_student'
+    );
+}
+
+public function leadershipRoles()
+{
+    return $this->hasMany(ClubLeader::class);
+}   
+
 
 }
