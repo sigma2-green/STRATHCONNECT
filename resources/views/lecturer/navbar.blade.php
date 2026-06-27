@@ -9,14 +9,14 @@
 
                 @auth('student')
                     <!-- USER AVATAR -->
-                    <div class="  text-white text-lg font-bold uppercase " style="font-family: 'Times New Roman', Times, serif;">
-                        {{ strtoupper(substr(Auth::guard('student')->user()->username,0,12)) }}
+                    <div class="w-12 aspect-square rounded-full bg-blue-600 text-white text-lg font-bold uppercase flex items-center justify-center flex-shrink-0">
+                        {{ strtoupper(substr(Auth::guard('lecturer')->user()->username, 0, 1)) }}
                     </div>
                 @else
                     <!-- LOGO -->
                     <a href="{{ route('home') }}"
                        class="text-xl font-bold text-blue-600 dark:text-blue-400">
-                        STRATHCONNECT
+                        StrathConnect
                     </a>
                 @endauth
             </div>
@@ -24,36 +24,33 @@
             <!-- RIGHT SIDE -->
             <div class="hidden md:flex space-x-3 items-center">
 
-            
-               
-
-                <a href="{{ route('event.index') }}"class="relative text-gray-600 dark:text-gray-300 hover:text-blue-600 border-black border-2 rounded-lg px-3 py-1">
-                     Events
+                <!-- PUBLIC LINKS -->
+                <a href="#"
+                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
+                    Announcements
                 </a>
 
-            
+                <a href="#"
+                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
+                    Events
+                </a>
 
-                <!-- AUTHENTICATED STUDENT LINKS -->
-                @auth('student')
+                <a href="#"
+                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
+                    Groups
+                </a>
 
-                    <a href="{{ route('clubs.index') }}"
-                       class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                        Clubs
-                    </a>
+                <!-- AUTHENTICATED LECTURER LINKS -->
+                @auth('lecturer')
 
-                    <a href="{{ route('student.dashboard') }}"
+                    <a href="{{ route('lecturer.dashboard') }}"
                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                         Dashboard
                     </a>
 
+                    
 
-
-                    <a href="{{ route('profile.edit') }} "
-                       class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                        Profile
-                    </a>
-
-                    <form method="POST" action="{{ route('student.logout') }}">
+                    <form method="POST" action="{{ route('lecturer.logout') }}">
                         @csrf
                         <button type="submit"
                                 class="text-red-500 hover:text-red-700 border-black border-2 rounded-lg px-3 py-1">
@@ -64,21 +61,21 @@
                 @endauth
 
                 @guest
-                    <a href="{{ route('student.login') }}"
+                    <a href="{{ route('lecturer.login') }}"
                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                        Login
                     </a>
 
-                    <a href="{{ route('student.register') }}"
+                    <a href="{{ route('lecturer.register') }}"
                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                         Sign Up 
                     </a> 
                 @endguest
-
-         
-                
-                
             
+
+                
+
+
 
             </div>
 
@@ -89,3 +86,4 @@
 
 
 </nav>
+
