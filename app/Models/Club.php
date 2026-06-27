@@ -13,7 +13,8 @@ class Club extends Model
     'logo',
     'banner',
     'status',
-    'created_by',
+    'created_by_student_id',
+    'created_by_lecturer_id',
 ];
 
     public function members()
@@ -29,8 +30,20 @@ class Club extends Model
         return $this->hasMany(ClubLeader::class);
     }
 
-   public function creator()
+   public function creatorStudent()
 {
-    return $this->belongsTo(Student::class, 'created_by');
+    return $this->belongsTo(Student::class, 'created_by_student_id');
+}
+
+public function creatorLecturer()
+{
+    return $this->belongsTo(Lecturer::class, 'created_by_lecturer_id');
+}
+public function lecturers()
+{
+    return $this->belongsToMany(
+        Lecturer::class,
+        'club_lecturer'
+    );
 }
 }

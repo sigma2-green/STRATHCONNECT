@@ -18,11 +18,17 @@ return new class extends Migration
                 'rejected'
             ])->default('pending')->after('banner');
 
-            $table->foreignId('created_by')
-                ->nullable()
-                ->constrained('students')
-                ->nullOnDelete()
-                ->after('status');
+            $table->foreignId('created_by_student_id')
+    ->nullable()
+    ->constrained('students')
+    ->nullOnDelete()
+    ->after('status');
+
+$table->foreignId('created_by_lecturer_id')
+    ->nullable()
+    ->constrained('lecturers')
+    ->nullOnDelete()
+    ->after('created_by_student_id');
         });
     }
 
@@ -30,13 +36,15 @@ return new class extends Migration
     {
         Schema::table('clubs', function (Blueprint $table) {
 
-            $table->dropForeign(['created_by']);
+            $table->dropForeign(['created_by_student_id']);
+$table->dropForeign(['created_by_lecturer_id']);
 
-            $table->dropColumn([
-                'description',
-                'status',
-                'created_by'
-            ]);
+$table->dropColumn([
+    'description',
+    'status',
+    'created_by_student_id',
+    'created_by_lecturer_id',
+]);
         });
     }
 };

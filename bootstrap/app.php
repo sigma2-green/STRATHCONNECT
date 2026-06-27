@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
+    $middleware->alias([
+        'student_or_lecturer' => \App\Http\Middleware\StudentOrLecturer::class,
+    ]);
+
     $middleware->redirectGuestsTo(function (Request $request) {
 
         if ($request->is('lecturer/*')) {

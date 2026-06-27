@@ -31,4 +31,14 @@ class Group extends Model
     return $this->hasMany(Post::class);
 }
 
+public function lecturers()
+{
+    return $this->belongsToMany(
+        Lecturer::class,
+        'group_lecturer',
+        'group_id',
+        'lecturer_id'
+    );
+}
+
 }

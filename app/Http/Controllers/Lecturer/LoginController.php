@@ -15,7 +15,7 @@ class LoginController extends Controller
     public function login(Request $request){
     // Use the login form instead
         $credentials = $request->validate([
-            'username' => ['required', 'string'],
+            'name' => ['required', 'string'],
             'password' => ['required']
         ]);
 
@@ -26,8 +26,8 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'username' => 'Invalid username or password.',
-        ])->onlyInput('username');
+            'name' => 'Invalid name or password.',
+        ])->onlyInput('name');
     }
 
     public function logout(Request $request)

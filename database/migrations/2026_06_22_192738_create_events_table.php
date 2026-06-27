@@ -11,22 +11,49 @@ return new class extends Migration
      */
     public function up(): void
 {
-    Schema::create('events', function (Blueprint $table) {
-        $table->id();
+   Schema::create('events', function (Blueprint $table) {
+    $table->id();
 
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->string('location')->nullable();
+    $table->string('title');
+    $table->text('description');
 
-        $table->dateTime('start_datetime');
-        $table->dateTime('end_datetime')->nullable();
+    $table->string('location');
 
-        $table->foreignId('created_by')->constrained('students');
+    $table->string('banner')->nullable();
 
-        $table->string('status')->default('pending');
+    $table->dateTime('start_datetime');
+    $table->dateTime('end_datetime');
 
-        $table->timestamps();
-    });
+    $table->unsignedInteger('capacity')->nullable();
+
+    $table->enum('visibility', [
+        'public',
+        'school',
+        'course',
+        'group',
+        'club'
+    ])->default('public');
+
+    $table->enum('status', [
+        'draft',
+        'pending',
+        'approved',
+        'cancelled',
+        'completed'
+    ])->default('pending');
+
+    $table->foreignId('created_by_student_id')
+        ->nullable()
+        ->constrained('students')
+        ->nullOnDelete();
+
+    $table->foreignId('created_by_lecturer_id')
+        ->nullable()
+        ->constrained('lecturers')
+        ->nullOnDelete();
+
+    $table->timestamps();
+});
 }
 
     /**

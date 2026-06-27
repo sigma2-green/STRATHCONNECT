@@ -7,10 +7,10 @@
             <!-- LEFT SIDE -->
             <div class="flex items-center">
 
-                @auth('student')
+                @auth('lecturer')
                     <!-- USER AVATAR -->
-                    <div class="w-12 aspect-square rounded-full bg-blue-600 text-white text-lg font-bold uppercase flex items-center justify-center flex-shrink-0">
-                        {{ strtoupper(substr(Auth::guard('lecturer')->user()->username, 0, 1)) }}
+                    <div class="w-12 aspect-square  text-white text-lg font-bold uppercase flex items-center justify-center flex-shrink-0" style="font-family: 'Times New Roman', Times, serif;">
+                        {{ strtoupper(substr(Auth::guard('lecturer')->user()->name, 0, 100)) }}
                     </div>
                 @else
                     <!-- LOGO -->
@@ -27,17 +27,12 @@
                 <!-- PUBLIC LINKS -->
                 <a href="#"
                    class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                    Announcements
-                </a>
-
-                <a href="#"
-                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                     Events
                 </a>
 
                 <a href="#"
                    class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                    Groups
+                    Clubs
                 </a>
 
                 <!-- AUTHENTICATED LECTURER LINKS -->

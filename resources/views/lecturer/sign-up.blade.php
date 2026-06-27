@@ -1,11 +1,11 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('lecturer.register.store') }}">
         @csrf
-        <!--    Username -->
+        <!--    Name -->
         <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            <x-input-label for="name" :value="__('Name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -14,6 +14,22 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+
+        <!-- Phone number -->
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Phone Number')" />
+            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus autocomplete="phone" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+     <!-- Office number -->
+        <div class="mt-4">
+            <x-input-label for="office" :value="__('Office Number')" />
+            <x-text-input id="office" class="block mt-1 w-full" type="text" name="office" :value="old('office')" required autofocus autocomplete="office" />
+            <x-input-error :messages="$errors->get('office')" class="mt-2" />
+        </div>  
+
+
 
         <!-- Staff number-->
         <div class="mt-4">
@@ -37,18 +53,18 @@
             <x-input-error :messages="$errors->get('school')" class="mt-2" />
         </div>
 
-        <!-- Department -->
+        <!-- Course -->
         <div class="mt-4">
-            <x-input-label for="department" :value="__('Department')" />
-            <select id="department" name="department" class="block mt-1 w-full" required>
+            <x-input-label for="course" :value="__('Course')" />
+            <select id="course" name="course" class="block mt-1 w-full" required>
                 <option value="">  </option>
                 <option value="ICS">ICS</option>
                 <option value="BBIT">BBIT</option>
                 <option value="LAW">Law</option>
-                <option value="Philisophy">Philisophy</option>
+                <option value="Philosophy">Philosophy</option>
                 <option value="CNA">CNA</option>
             </select>
-            <x-input-error :messages="$errors->get('department')" class="mt-2" />
+            <x-input-error :messages="$errors->get('course')" class="mt-2" />
         </div>  
 
 

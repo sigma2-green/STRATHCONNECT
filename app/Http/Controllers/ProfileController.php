@@ -12,6 +12,7 @@ use App\Models\Event;
 use App\Models\Post;
 
 
+
 class ProfileController extends Controller
 {
     /**
@@ -22,9 +23,9 @@ class ProfileController extends Controller
 
     $user = $request->user();
 
-    $myEvents = Event::where('created_by', $user->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+    $myEvents = Event::where('created_by_student_id', $user->id)
+    ->orderBy('created_at', 'desc')
+    ->get();
         
         return view('profile.edit', [
             'user' => $user,
@@ -72,7 +73,7 @@ class ProfileController extends Controller
         $student = Auth::guard('student')->user();
 
 // Delete events created by the student
-        Event::where('created_by', $student->id)->delete();
+       Event::where('created_by_student_id', $student->id)->delete();
 
         Post::where('student_id', $student->id)->delete();
 

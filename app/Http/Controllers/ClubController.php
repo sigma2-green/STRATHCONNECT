@@ -15,18 +15,23 @@ class ClubController extends Controller
 {
 public function join(Club $club)
 {
-    $student = auth()->guard('student')->user();
+    if (Auth::guard('student')->check()) {
 
-    $club->members()->syncWithoutDetaching($student->id);
+        $student = Auth::guard('student')->user();
 
-    return back()->with('success', 'Joined club successfully!');
+        $club->members()->syncWithoutDetaching($student->id);
+
+        return back()->with('success', 'Joined club successfully!');
+    }
+
+    return back()->with('error', 'Only students can join clubs.');
 }
 
 public function index()
 {
-    $student = auth()->guard('student')->user();
+    if (Auth::guard('student')->check()) {
 
-    if ($student) {
+        $student = Auth::guard('student')->user();
 
         $myClubs = $student->clubs()->get();
 
@@ -36,9 +41,10 @@ public function index()
 
     } else {
 
-        // lecturer view
+        // Lecturer
         $myClubs = collect();
         $discoverClubs = Club::all();
+
     }
 
     return view('clubs.index', compact(
@@ -52,7 +58,8 @@ public function index()
 }
 public function store(Request $request)
 {
-    $student = auth()->guard('student')->user();
+   $student = Auth::guard('student')->user();
+   $lecturer = Auth::guard('lecturer')->user();
 
     $validated = $request->validate([
         'name' => 'required|string|max:255',
@@ -74,17 +81,19 @@ public function store(Request $request)
     }
 
     $club = Club::create([
-        'name' => $validated['name'],
-        'category' => $validated['category'],
-        'description' => $validated['description'] ?? null,
-        'logo' => $logoPath,
-        'banner' => $bannerPath,
-        'status' => 'pending', // optional approval workflow
-        'created_by' => $student->id,
-    ]);
+    'name' => $validated['name'],
+    'category' => $validated['category'],
+    'description' => $validated['description'] ?? null,
+    'logo' => $logoPath,
+    'banner' => $bannerPath,
+    'status' => 'pending',
+    'created_by' => $student?->id,
+]);
 
     // Creator automatically becomes a member
+    if ($student) {
     $club->members()->attach($student->id);
+}
 
     return redirect()
         ->route('clubs.index')

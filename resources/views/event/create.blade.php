@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@if(Auth::guard('lecturer')->check())
+    @extends('layouts.ui')
+@else
+    @extends('layouts.app')
+@endif
 
 @section('content')
 
@@ -47,8 +51,7 @@
 
         @endif
 
-        <form method="POST"
-              action="{{ route('event.store') }}" class="space-y-8 ">
+        <form method="POST"action="{{ route('event.store') }}"enctype="multipart/form-data"class="space-y-8">
 
             @csrf
 
@@ -116,6 +119,25 @@
 
                     </div>
 
+                    <div>
+
+    <label class="block font-semibold text-slate-700 mb-2">
+        Event Banner (Optional)
+    </label>
+
+    <input
+        type="file"
+        name="banner"
+        accept="image/*"
+        class="w-full rounded-xl border border-gray-300 px-4 py-3">
+
+    <p class="text-sm text-slate-500 mt-2">
+        Upload a poster or banner for the event.
+    </p>
+  <img id="bannerPreview"
+     class="hidden mt-4 rounded-xl max-h-60 w-full object-cover">
+</div>
+
                     {{-- Two Columns --}}
                     <div class="grid md:grid-cols-2 gap-6">
 
@@ -142,6 +164,51 @@
                                        focus:ring-blue-500">
 
                         </div>
+
+                        <div>
+
+    <label class="block font-semibold text-slate-700 mb-2">
+        Maximum Attendees
+    </label>
+
+    <input
+        type="number"
+        name="capacity"
+        min="1"
+        value="{{ old('capacity') }}"
+        placeholder="Leave empty for unlimited"
+
+        class="w-full rounded-xl border border-gray-300
+               px-4 py-3
+               focus:ring-2
+               focus:ring-blue-500">
+
+</div>
+
+            <div>
+
+    <label class="block font-semibold text-slate-700 mb-2">
+        Visibility
+    </label>
+
+    <select
+        name="visibility"
+        class="w-full rounded-xl border border-gray-300
+               px-4 py-3
+               focus:ring-2
+               focus:ring-blue-500">
+
+        <option value="public">Public</option>
+        <option value="school">School Only</option>
+        <option value="course">Course Only</option>
+        <option value="group">Specific Group</option>
+        <option value="club">Specific Club</option>
+
+    </select>
+
+</div>
+
+
 
                         <div>
 
@@ -236,6 +303,30 @@
 
                 </div>
 
+                <div class="border-t pt-8">
+
+    <h3 class="text-xl font-bold text-slate-700 mb-4">
+        Submission Information
+    </h3>
+
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+
+        <ul class="space-y-2 text-slate-700">
+
+            <li>✓ Your event will be reviewed before publication.</li>
+
+            <li>✓ Only approved events appear to students.</li>
+
+            <li>✓ You can edit the event before approval.</li>
+
+            <li>✓ Event organizers are notified once approved.</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
                 {{-- Footer --}}
                 <div class="bg-slate-50 border-t px-8 py-6 flex justify-end">
 
@@ -250,7 +341,7 @@
                                font-semibold
                                shadow">
 
-                        Submit Event
+                        📅 Submit Event for Approval
 
                     </button>
 
@@ -263,5 +354,20 @@
     </div>
 
 </div>
+<script>
+document.querySelector('input[name="banner"]').addEventListener('change', function(e){
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    const preview = document.getElementById('bannerPreview');
+
+    preview.src = URL.createObjectURL(file);
+
+    preview.classList.remove('hidden');
+
+});
+</script>
 
 @endsection

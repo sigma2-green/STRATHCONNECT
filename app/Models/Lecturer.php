@@ -10,11 +10,14 @@ class Lecturer extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'username',
+        'name',
         'email',
         'staff_number',
         'school',
-        'department',
+        'course',
+        'phone',
+        'office',
+        'approved',
         'password',
     ];
 
@@ -22,4 +25,20 @@ class Lecturer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function groups()
+{
+    return $this->belongsToMany(
+        Group::class,
+        'group_lecturer',
+        'lecturer_id',
+        'group_id'
+    );
+}
+
+public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+
 }

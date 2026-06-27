@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@if(Auth::guard('lecturer')->check())
+    @extends('layouts.ui')
+@else
+    @extends('layouts.app')
+@endif
 
 @section('content')
 <div class="max-w-3xl mx-auto p-6">

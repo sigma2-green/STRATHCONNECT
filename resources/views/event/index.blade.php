@@ -1,60 +1,271 @@
-@extends('layouts.app')
+@if(Auth::guard('lecturer')->check())
+    @extends('layouts.ui')
+@else
+    @extends('layouts.app')
+@endif
 
 @section('content')
 
-<div class="p-6 max-w-6xl mx-auto">
+<div class="max-w-7xl mx-auto p-8">
 
-    {{-- HEADER --}}
-    <div class="flex items-center justify-between mb-8">
+    {{-- ================= HEADER ================= --}}
+    <div class="flex flex-col md:flex-row justify-between md:items-center mb-8">
+
         <div>
-            <h1 class="text-3xl font-bold" style="font-family: 'Times New Roman', Times, serif;">SCHOOL APPROVED EVENTS</h1>
-            <p class="text-gray-500 mt-1">Browse and manage all school events</p>
+            <h1 class="text-4xl font-bold text-slate-800">
+                School Events
+            </h1>
+
+            <p class="text-slate-500 mt-2">
+                Discover upcoming academic, social and community events.
+            </p>
         </div>
 
-        <a href="{{ route('event.create') }}"
-           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            + Create Event
-        </a>
+        <div class="mt-5 md:mt-0">
+
+            <a href="{{ route('event.create') }}"
+               class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow">
+
+                <span class="text-xl">+</span>
+
+                Create Event
+
+            </a>
+
+        </div>
+
     </div>
 
-    {{-- ================= APPROVED EVENTS ================= --}}
-    <div class="mb-10">
+    {{-- ================= STATISTICS ================= --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
-        <h2 class="text-xl font-bold mb-4 text-green-700">🟢 Approved Events</h2>
+        <div class="bg-white rounded-2xl shadow p-6">
 
-        @if($approvedEvents->count() > 0)
+            <h2 class="text-3xl font-bold text-blue-600">
 
-            <div class="grid md:grid-cols-2 gap-4">
+                {{ $approvedEvents->count() }}
 
-                @foreach($approvedEvents as $event)
-                    <div class="p-5 bg-white border rounded-xl shadow-sm">
+            </h2>
 
-                        <h3 class="text-lg font-semibold">
-                            {{ $event->title }}
-                        </h3>
+            <p class="text-slate-500 mt-2">
 
-                        <p class="text-gray-600 mt-2 line-clamp-2">
-                            {{ $event->description }}
+                Approved Events
+
+            </p>
+
+        </div>
+
+        <div class="bg-white rounded-2xl shadow p-6">
+
+            <h2 class="text-3xl font-bold text-green-600">
+
+                {{ $approvedEvents->where('start_datetime','>=',now())->count() }}
+
+            </h2>
+
+            <p class="text-slate-500 mt-2">
+
+                Upcoming Events
+
+            </p>
+
+        </div>
+
+
+    </div>
+</br>
+
+    {{-- ================= EVENTS ================= --}}
+
+    @if($approvedEvents->count())
+
+        <div class=" gap-8 rounded-3xl">
+
+            @foreach($approvedEvents as $event)
+
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-xl transition">
+
+                    {{-- Banner --}}
+                    @if($event->banner)
+
+                        <img
+                            src="{{ Storage::url($event->banner) }}"
+                            class="w-full h-60 object-cover">
+
+                    @else
+
+                        <div class="h-60 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+
+                            <div class="text-white text-6xl">
+                                📅
+                            </div>
+
+                        </div>
+
+                    @endif
+
+                    <div class="p-6">
+
+                        {{-- Title --}}
+                        <div class="flex justify-between items-start">
+
+                            <h2 class="text-2xl font-bold text-slate-800">
+
+                                {{ $event->title }}
+
+                            </h2>
+
+                            <span class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
+
+                                Approved
+
+                            </span>
+
+                        </div>
+
+                        {{-- Creator --}}
+                        <p class="text-sm text-slate-500 mt-2">
+
+                            Created by
+
+                            <span class="font-semibold">
+
+                                {{ $event->creatorStudent?->username
+                                    ?? $event->creatorLecturer?->username
+                                    ?? 'Unknown User' }}
+
+                            </span>
+
                         </p>
 
-                        <div class="text-sm text-gray-500 mt-3">
-                            📍 {{ $event->location ?? 'TBA' }} <br>
-                            🕒 {{ \Carbon\Carbon::parse($event->start_datetime)->format('d M Y, H:i') }}
+                        {{-- Description --}}
+                        <p class="text-slate-600 mt-5 leading-relaxed">
+
+                            {{ $event->description }}
+
+                        </p>
+
+                        {{-- Divider --}}
+                        <hr class="my-5">
+
+                        {{-- Information --}}
+                        <div class="space-y-3 text-sm">
+
+                            <div>
+
+                                📍
+                                <span class="font-medium">
+                                    {{ $event->location }}
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                📅 Starts:
+
+                                <strong>
+
+                                    {{ $event->start_datetime->format('d M Y • H:i') }}
+
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                🏁 Ends:
+
+                                <strong>
+
+                                    {{ $event->end_datetime->format('d M Y • H:i') }}
+
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                👥 Capacity:
+
+                                <strong>
+
+                                    {{ $event->capacity ?? 'Unlimited' }}
+
+                                </strong>
+
+                            </div>
+
+                            <div>
+
+                                🌍 Visibility:
+
+                                <span class="capitalize font-semibold">
+
+                                    {{ $event->visibility }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        {{-- Buttons --}}
+                        <div class="mt-8 flex gap-3">
+
+                            <button
+                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold">
+
+                                View Details
+
+                            </button>
+
+                            <button
+                                class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold">
+
+                                Attend
+
+                            </button>
+
                         </div>
 
                     </div>
-                @endforeach
 
-            </div>
+                </div>
 
-        @else
-            <div class="p-6 bg-gray-50 border rounded-xl text-gray-500">
-                No approved events available yet.
-            </div>
-        @endif
+            @endforeach
 
-    </div>
+        </div>
 
+    @else
+
+        {{-- Empty State --}}
+        <div class="bg-white rounded-3xl shadow p-20 text-center">
+
+           
+
+            <h2 class="text-3xl font-bold text-slate-700">
+
+                No Upcoming Events
+
+            </h2>
+
+            <p class="text-slate-500 mt-3">
+
+                There are currently no approved events.
+
+            </p>
+
+            <a href="{{ route('event.create') }}"
+               class="inline-block mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl">
+
+                Create the First Event
+
+            </a>
+
+        </div>
+
+    @endif
 
 </div>
 

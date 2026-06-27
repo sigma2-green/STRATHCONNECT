@@ -2,13 +2,13 @@
     <!-- Session Status -->
     
 
-    <form method="POST" action="{{ route('lecturer.login.submit') }}">
+    <form method="POST" action="{{ route('Lecturer.login.submit') }}">
         @csrf
 
         <!-- Username -->
         <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+            <x-input-label for="name" :value="__('name')" />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('username')" class="mt-2" />
         </div>
 
