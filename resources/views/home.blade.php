@@ -18,7 +18,7 @@
         <div class="mt-10 flex justify-center gap-6 flex-wrap">
 
             <!-- LOGIN -->
-            <a href="{{ route('student.login.submit') }}"
+            <a href="{{ route('student.login') }}"
                class="w-44 h-40 flex flex-col items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg hover:scale-105 transition">
 
                 <span class="text-3xl mb-2">🔐</span>
