@@ -18,7 +18,7 @@
     <div class="min-h-screen flex flex-col">
 
         <!-- Navigation -->
-        @include('layouts.navigation')
+        @include('lecturer.navbar')
 
 
 
@@ -48,3 +48,4 @@
     </div>
 </body>
 </html>
+

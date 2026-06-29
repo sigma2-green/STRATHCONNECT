@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Event;
+use App\Models\Post;
+
+
 
 class ProfileController extends Controller
 {
@@ -16,8 +20,16 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+
+    $user = $request->user();
+
+    $myEvents = Event::where('created_by_student_id', $user->id)
+    ->orderBy('created_at', 'desc')
+    ->get();
+        
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'myEvents' => $myEvents,
         ]);
     }
 
@@ -36,6 +48,7 @@ class ProfileController extends Controller
     $student->fill([
         'username' => $request->username,
         'email' => $request->email,
+
     ]);
 
     // optional email verification reset
@@ -57,15 +70,20 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user = $request->user();
+        $student = Auth::guard('student')->user();
 
-        Auth::logout();
+// Delete events created by the student
+       Event::where('created_by_student_id', $student->id)->delete();
 
-        $user->delete();
+        Post::where('student_id', $student->id)->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::guard('student')->logout();
 
-        return Redirect::to('/');
+         $student->delete();
+
+         $request->session()->invalidate();
+         $request->session()->regenerateToken();
+
+        return redirect()->route('home')->with('status', 'Account deleted successfully.');
     }
 }

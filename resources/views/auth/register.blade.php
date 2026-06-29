@@ -24,8 +24,8 @@
 
         <!--Group-->
         <div class="mt-4">
-            <x-input-label for="group" :value="__('Group')" />
-            <select id="group" name="group" class="block mt-1 w-full" required>
+            <x-input-label for="class_group" :value="__('Group')" />
+            <select id="class_group" name="class_group" class="block mt-1 w-full" required>
                 <option value="">  </option>
                 <option value="A">A</option>
                 <option value="B">B</option>
@@ -57,11 +57,25 @@
                 <option value="">  </option>
                 <option value="ICS">ICS</option>
                 <option value="BBIT">BBIT</option>
-                <option value="LAW">Law</option>
-                <option value="Philisophy">Philisophy</option>
+                <option value="BCOM">BCOM</option>
+                <option value="LAW">LAW</option>
+                <option value="Philosophy">Philosophy</option>
                 <option value="CNA">CNA</option>
             </select>
             <x-input-error :messages="$errors->get('course')" class="mt-2" />
+        </div> 
+        
+        <!-- year of study -->
+        <div class="mt-4">
+            <x-input-label for="year_level" :value="__('Year of Study')" />
+            <select id="year_level" name="year_level" class="block mt-1 w-full" required>
+                <option value="">  </option>
+                <option value="1st Year">1st Year</option>    
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+            </select>
+            <x-input-error :messages="$errors->get('year_level')" class="mt-2" />
         </div>  
 
 
@@ -89,4 +103,51 @@
             </x-primary-button>
         </div>
     </form>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const schoolCourses = {
+        SCES: ["ICS", "BBIT", "CNA"],
+        SBS: ["BCOM"],
+        SLS: ["LAW"],
+        SHS: [ "Philosophy"]
+    };
+
+    const schoolSelect = document.getElementById("school");
+    const courseSelect = document.getElementById("course");
+
+    // Start disabled until school is selected
+    courseSelect.disabled = true;
+
+    schoolSelect.addEventListener("change", function () {
+        const school = this.value;
+
+        // Reset course dropdown
+        courseSelect.innerHTML = '<option value=""> </option>';
+
+        if (!school || !schoolCourses[school]) {
+            courseSelect.disabled = true;
+            return;
+        }
+
+        // Enable dropdown
+        courseSelect.disabled = false;
+
+        // Populate courses
+        schoolCourses[school].forEach(course => {
+            const option = document.createElement("option");
+            option.value = course;
+            option.textContent = course;
+            courseSelect.appendChild(option);
+        });
+    });
+
+    // Optional: reset on page load (important after validation errors)
+    if (!schoolSelect.value) {
+        courseSelect.disabled = true;
+        courseSelect.innerHTML = '<option value=""> </option>';
+    }
+
+});
+</script>
 </x-guest-layout>
