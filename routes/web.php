@@ -209,7 +209,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
     Route::middleware('auth:admin')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('students', [DashboardController::class, 'students'])->name('students'); 
+        Route::get('students', [DashboardController::class, 'students'])->name('students');
+        Route::get('lecturers', [DashboardController::class, 'lecturers'])->name('lecturers');
+        Route::get('admins', [DashboardController::class, 'admins'])->name('index');
+        Route::get('assign', [DashboardController::class, 'assign'])->name('assign');
+        //Route::get('assignments', [DashboardController::class, 'assignments'])->name('assignments');
+       // Route::get('assignments/create', [DashboardController::class, 'createAssignment'])->name('assignments.create');
+       // Route::post('assignments', [DashboardController::class, 'storeAssignment'])->name('assignments.store');
+       // Route::get('assignments/{assignment}/edit', [DashboardController::class, 'editAssignment'])->name('assignments.edit');
+        //Route::put('assignments/{assignment}', [DashboardController::class, 'updateAssignment'])->name('assignments.update');
+        //Route::delete('assignments/{assignment}', [DashboardController::class, 'destroyAssignment'])->name('assignments.destroy');
+        //Route::get('assignments/{assignment}/lecturers', [DashboardController::class, 'showAssignmentLecturers'])->name('assignments.lecturers');
+        //Route::post('assignments/{assignment}/lecturers', [DashboardController::class, 'addLecturerToAssignment'])->name('assignments.lecturers.add');  
+        Route::get('events', [DashboardController::class, 'events'])->name('events.index');
+        Route::get('events/pending', [DashboardController::class, 'pendingEvents'])->name('events.pending');
+        Route::post('events/{event}/approve', [DashboardController::class, 'approveEvent'])->name('events.approve');
+        Route::post('events/{event}/reject', [DashboardController::class, 'rejectEvent'])->name('events.reject'); 
+        Route::delete('events/{event}', [DashboardController::class, 'deleteEvent'])->name('events.delete');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     });
 
@@ -240,15 +256,24 @@ Route::middleware('guest:lecturer')->group(function () {
 
     Route::post('/lecturer/login', [LecturerLoginController::class, 'login'])
         ->name('Lecturer.login.submit');
+    
 
-    Route::get('/lecturer/profile', fn () => view('lecturer.profile'))
-        ->name('lecturer.profile');
+    
 });
 
 Route::middleware('auth:lecturer')->group(function () {
 
     Route::get('/lecturer/dashboard', [LecturerDashboardController::class, 'index'])
         ->name('lecturer.dashboard');
+
+     Route::get('lecturer/events', [EventController::class, 'index'])
+        ->name('lecturer.event.index');
+
+    Route::get('/lecturer/events/create', [EventController::class, 'create'])
+        ->name('lecturer.event.create');
+
+    Route::post('/lecturer/events', [EventController::class, 'store'])
+        ->name('lecturer.event.store');
 
     Route::post('/lecturer/logout', [LecturerLoginController::class, 'logout'])
         ->name('lecturer.logout');

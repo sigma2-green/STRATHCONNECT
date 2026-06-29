@@ -1,8 +1,4 @@
-@if(Auth::guard('lecturer')->check())
-    @extends('layouts.ui')
-@else
-    @extends('layouts.app')
-@endif
+@extends('layouts.app')
 
 @section('content')
 
@@ -18,7 +14,7 @@
                     Create New Event
                 </h1>
 
-                <p class="text-slate-500 mt-2">
+                <p class="text-slate-500 mt-2 ">
                     Organize academic, social and community events for Strathmore students.
                 </p>
             </div>
@@ -60,7 +56,7 @@
                 {{-- Card Header --}}
                 <div class="bg-blue-600 px-8 py-6">
 
-                    <h2 class="text-2xl font-bold text-white">
+                    <h2 class="text-2xl font-bold text-black">
                         Event Information
                     </h2>
 
@@ -75,7 +71,7 @@
                     {{-- Event Title --}}
                     <div>
 
-                        <label class="block font-semibold text-slate-700 mb-2">
+                        <label class="block font-semibold text-slate-700 text-black mb-2">
                             Event Title
                         </label>
 
@@ -99,7 +95,7 @@
                     {{-- Description --}}
                     <div>
 
-                        <label class="block font-semibold text-slate-700 mb-2">
+                        <label class="block font-semibold text-slate-700 text-black mb-2">
                             Description
                         </label>
 
@@ -121,7 +117,7 @@
 
                     <div>
 
-    <label class="block font-semibold text-slate-700 mb-2">
+    <label class="block font-semibold text-slate-700 text-black mb-2">
         Event Banner (Optional)
     </label>
 
@@ -144,7 +140,7 @@
                         {{-- Location --}}
                         <div>
 
-                            <label class="block font-semibold text-slate-700 mb-2">
+                            <label class="block font-semibold text-slate-700 text-black mb-2">
                                 Venue
                             </label>
 
@@ -167,7 +163,7 @@
 
                         <div>
 
-    <label class="block font-semibold text-slate-700 mb-2">
+    <label class="block font-semibold text-slate-700 text-black mb-2">
         Maximum Attendees
     </label>
 
@@ -187,7 +183,7 @@
 
             <div>
 
-    <label class="block font-semibold text-slate-700 mb-2">
+    <label class="block font-semibold text-slate-700 text-black mb-2">
         Visibility
     </label>
 
@@ -212,13 +208,13 @@
 
                         <div>
 
-                            <label class="block font-semibold text-slate-700 mb-2">
+                            <label class="block font-semibold text-slate-700 text-black mb-2">
                                 Event Status
                             </label>
 
                             <div class="rounded-xl bg-yellow-100 border border-yellow-300 p-4">
 
-                                <div class="font-semibold text-yellow-700">
+                                <div class="font-semibold text-black">
 
                                     🟡 Pending Approval
 
@@ -239,7 +235,7 @@
                     {{-- Date Section --}}
                     <div class="border-t pt-8">
 
-                        <h3 class="text-xl font-bold text-slate-700 mb-5">
+                        <h3 class="text-xl font-bold text-slate-700 text-black mb-5">
 
                             Event Schedule
 
@@ -249,7 +245,7 @@
 
                             <div>
 
-                                <label class="block font-semibold mb-2">
+                                <label class="block font-semibold text-black mb-2">
 
                                     Start Date & Time
 
@@ -274,7 +270,7 @@
 
                             <div>
 
-                                <label class="block font-semibold mb-2">
+                                <label class="block font-semibold text-black mb-2">
 
                                     End Date & Time
 
@@ -305,25 +301,7 @@
 
                 <div class="border-t pt-8">
 
-    <h3 class="text-xl font-bold text-slate-700 mb-4">
-        Submission Information
-    </h3>
-
-    <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
-
-        <ul class="space-y-2 text-slate-700">
-
-            <li>✓ Your event will be reviewed before publication.</li>
-
-            <li>✓ Only approved events appear to students.</li>
-
-            <li>✓ You can edit the event before approval.</li>
-
-            <li>✓ Event organizers are notified once approved.</li>
-
-        </ul>
-
-    </div>
+   
 
 </div>
 

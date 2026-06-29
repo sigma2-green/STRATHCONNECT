@@ -24,16 +24,7 @@
             <!-- RIGHT SIDE -->
             <div class="hidden md:flex space-x-3 items-center">
 
-                <!-- PUBLIC LINKS -->
-                <a href="#"
-                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                    Events
-                </a>
 
-                <a href="#"
-                   class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
-                    Clubs
-                </a>
 
                 <!-- AUTHENTICATED LECTURER LINKS -->
                 @auth('lecturer')

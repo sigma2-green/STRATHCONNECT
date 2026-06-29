@@ -41,4 +41,31 @@ public function posts()
     return $this->hasMany(Post::class);
 }
 
+public function comments()
+{
+    return $this->hasMany(Comment::class);
+
+}
+
+public function events()
+{
+    return $this->belongsToMany(
+        Event::class,
+        'event_lecturer',
+        'lecturer_id',
+        'event_id'
+    );
+}
+
+public function classes()
+{
+    return $this->belongsToMany(
+        Group::class,
+        'group_lecturer',
+        'lecturer_id',
+        'class_group_id'
+    );
+
+}
+
 }

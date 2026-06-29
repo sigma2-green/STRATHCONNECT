@@ -104,12 +104,6 @@
                     onclick="selectPost({{ $post->id }})"
                     id="post-{{ $post->id }}">
 
-                    {{-- IMAGE --}}
-                    @if($post->attachment && $post->attachment_type === 'image')
-                        <img src="{{ Storage::url($post->attachment) }}"
-                             class="w-16 h-16 rounded-full object-cover"
-                             onclick="event.stopPropagation(); openImage(this.src)">
-                    @endif
 
                     {{-- TEXT --}}
                     @if($post->content)
@@ -204,7 +198,6 @@
 
                 <div class="flex gap-3 items-center">
 
-                    <input type="file" name="image" class="text-sm text-white">
 
                     <input type="text"
                            name="content"

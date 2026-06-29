@@ -1,8 +1,4 @@
-@if(Auth::guard('lecturer')->check())
-    @extends('layouts.ui')
-@else
-    @extends('layouts.app')
-@endif
+@extends('layouts.app')
 
 @section('content')
 
@@ -239,31 +235,15 @@
 
     @else
 
-        {{-- Empty State --}}
-        <div class="bg-white rounded-3xl shadow p-20 text-center">
+        <div class="bg-white rounded-3xl shadow p-6 text-center">
 
-           
+            <h2 class="text-2xl font-bold text-slate-800">
 
-            <h2 class="text-3xl font-bold text-slate-700">
-
-                No Upcoming Events
+                No Approved Events
 
             </h2>
-
-            <p class="text-slate-500 mt-3">
-
-                There are currently no approved events.
-
-            </p>
-
-            <a href="{{ route('event.create') }}"
-               class="inline-block mt-8 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl">
-
-                Create the First Event
-
-            </a>
-
         </div>
+
 
     @endif
 

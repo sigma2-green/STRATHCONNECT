@@ -1,8 +1,5 @@
-@if(Auth::guard('lecturer')->check())
-    @extends('layouts.ui')
-@else
-    @extends('layouts.app')
-@endif
+@extends('layouts.app')
+
 
 @section('content')
 
@@ -150,13 +147,13 @@
                             @csrf
 
                            @auth('student')
-<form method="POST" action="{{ route('clubs.join', $club->id) }}">
-    @csrf
-    <button class="mt-3 bg-green-600 text-white px-3 py-1 rounded">
-        Join
-    </button>
-</form>
-@endauth
+                           <form method="POST" action="{{ route('clubs.join', $club->id) }}">
+                            @csrf
+                            <button class="mt-3 bg-green-600 text-white px-3 py-1 rounded">
+                               Join
+                            </button>
+                            </form>
+                            @endauth
                         </form>
 
                         <a href="#"

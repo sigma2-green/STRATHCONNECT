@@ -39,25 +39,24 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+       $validated = $request->validate([
+    'title' => 'required|string|max:255',
+    'description' => 'nullable|string|max:3000',
+    'location' => 'required|string|max:255',
+    'banner' => 'nullable|image|max:5120',
+    'capacity' => 'nullable|integer|min:1',
+    'visibility' => 'required|in:public,school,course,group,club',
+    'start_datetime' => 'required|date',
+    'end_datetime' => 'required|date',
+]);
 
-            'title' => 'required|string|max:255',
-
-            'description' => 'nullable|string|max:3000',
-
-            'location' => 'required|string|max:255',
-
-            'banner' => 'nullable|image|max:5120',
-
-            'capacity' => 'nullable|integer|min:1',
-
-            'visibility' => 'required|in:public,school,course,group,club',
-
-            'start_datetime' => 'required|date',
-
-            'end_datetime' => 'required|date|after:start_datetime',
-
-        ]);
+if (strtotime($validated['end_datetime']) <= strtotime($validated['start_datetime'])) {
+    return back()
+        ->withErrors([
+            'end_datetime' => 'The end date and time must be after the start date and time.'
+        ])
+        ->withInput();
+}
 
         /*
         |--------------------------------------------------------------------------
@@ -93,25 +92,15 @@ class EventController extends Controller
         Event::create([
 
             'title' => $validated['title'],
-
             'description' => $validated['description'] ?? null,
-
             'location' => $validated['location'],
-
             'banner' => $bannerPath,
-
             'capacity' => $validated['capacity'] ?? null,
-
             'visibility' => $validated['visibility'],
-
             'start_datetime' => $validated['start_datetime'],
-
             'end_datetime' => $validated['end_datetime'],
-
             'created_by_student_id' => $student?->id,
-
             'created_by_lecturer_id' => $lecturer?->id,
-
             // every event awaits approval
             'status' => 'pending',
         ]);
