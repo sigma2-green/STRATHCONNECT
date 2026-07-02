@@ -3,6 +3,7 @@
 <head>  
     <title>Pending Events - Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{{ asset('images/strathConnect.png') }}">
 </head>
 <body class="bg-gray-100">
     <nav class="bg-white shadow p-4">
@@ -47,7 +48,7 @@
                             <td class="px-6 py-4">{{ $event->location }}</td>
                             <td class="px-6 py-4">{{ $event->start_date }}</td>
                             <td class="px-6 py-4">{{ $event->end_date }}</td>
-                            <td class="px-6 py-4">{{ $event->created_by_student_id }}</td>
+                            <td class="px-6 py-4">{{ $event->creatorStudent?->username ?? $event->creatorLecturer?->name ?? 'Unknown User' }}</td>
                             <td class="px-6 py-4">{{ $event->created_at }}</td>
                             <td class="px-6 py-4 space-x-2">
                                 <!-- Approve Button -->

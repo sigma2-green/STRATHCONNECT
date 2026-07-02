@@ -68,4 +68,13 @@ public function classes()
 
 }
 
+public function announcements()
+{
+    return $this->hasMany(Announcement::class);
+
+}
+ public function isApproved()
+{
+    return $this->approved; 
+}
 }

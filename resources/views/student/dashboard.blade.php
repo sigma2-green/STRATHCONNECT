@@ -1,27 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 py-12 px-8">
-    <div class="max-w-6xl mx-auto pt-8">
+<div class="min-h-screen rounded-lg bg-gray-100 dark:bg-slate-900 py-12 px-8">
 
-        <div class="mb-16">
 
-            <h1 class="text-4xl font-bold text-slate-800">
-                👋 Welcome to StrathConnect
-            </h1>
+<div class="h-screen flex overflow-hidden bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-white rounded-lg transition-colors duration-300">
 
-            <p class="text-slate-500 mt-2">
-                Stay connected with announcements, events, coursework and your student community.
-            </p>
+    {{-- ================= SIDEBAR ================= --}}
+    <aside class="w-72 flex flex-col h-full min-h-0 overflow-hidden bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700">
 
+        <div class="h-16 flex items-center justify-center border-b border-slate-800">
+            <h1 class="h-16 flex items-center justify-center border-b border-gray-200 dark:border-slate-700">STRATHCONNECT</h1>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            <!-- LEFT COLUMN -->
-            <div class="space-y-6">
-
-                <a href="{{ route('student.announcements') }}"
+        <div class="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-5 scroll-smooth">
+        <a href="{{ route('student.announcements') }}"
                    class="w-full h-28 flex items-center gap-4 rounded-2xl bg-blue-600 text-white px-6 shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
                     <span class="text-3xl">📢</span>
                     <div>
@@ -29,34 +21,11 @@
                         <div class="text-sm opacity-80">View latest news</div>
                     </div>
                 </a>
+        
+    </br>
+        
 
-                <a href="#"
-                   class="w-full h-28 flex items-center gap-4 rounded-2xl bg-green-600 text-white px-6 shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
-                    <span class="text-3xl">📅</span>
-                    <div>
-                        <div class="font-bold text-lg">Events</div>
-                        <div class="text-sm opacity-80">See upcoming events</div>
-                    </div>
-                </a>
-
-                <a href="#"
-                   class="w-full h-28 flex items-center gap-4 rounded-2xl bg-purple-600 text-white px-6 shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
-                    <span class="text-3xl">👥</span>
-                    <div>
-                        <div class="font-bold text-lg">Groups</div>
-                        <div class="text-sm opacity-80">Join student groups</div>
-
-<div class="h-screen flex overflow-hidden bg-slate-900 text-white">
-
-    {{-- ================= SIDEBAR ================= --}}
-    <aside class="w-72 flex flex-col h-full min-h-0 overflow-hidden">
-
-        <div class="h-16 flex items-center justify-center border-b border-slate-800">
-            <h1 class="text-xl font-bold text-blue-600">STRATHCONNECT</h1>
-        </div>
-
-        <div class="flex-1 min-h-0 overflow-y-auto">
-
+        
             @foreach([
                 'SCHOOL' => $schoolGroups,
                 'COURSE' => $courseGroups,
@@ -73,7 +42,7 @@
                                class="block px-3 py-2 rounded-lg text-sm
                                {{ request('group') == $group->id
                                     ? 'bg-blue-600 text-white'
-                                    : 'hover:bg-slate-800 text-slate-300' }}">
+                                    : 'hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-700 dark:text-slate-300' }}">
                                 {{ $group->name }}
                             </a>
                         @empty
@@ -88,12 +57,12 @@
     </aside>
 
     {{-- ================= MAIN ================= --}}
-    <main class="flex-1 flex flex-col h-full min-h-0 overflow-hidden bg-slate-900">
+    <main class="flex-1 flex flex-col h-full min-h-0 overflow-hidden bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
 
     @if($selectedGroup)
 
         {{-- HEADER --}}
-        <div class="h-16 flex items-center justify-between px-5 border-b border-slate-800 bg-slate-800 flex-shrink-0">
+        <div class="h-16 flex items-center justify-between px-5 border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex-shrink-0">
             <div>
                 <h2 class="font-semibold text-lg">{{ $selectedGroup->name }}</h2>
                 <p class="text-xs text-slate-400">{{ $posts->count() }} posts</p>
@@ -101,34 +70,9 @@
         </div>
 
             <!-- RIGHT COLUMN -->
-            <div class="space-y-6">
-
-                <a href="#"
-                   class="w-full h-28 flex items-center gap-4 rounded-2xl bg-orange-600 text-white px-6 shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
-                    <span class="text-3xl">📚</span>
-                    <div>
-                        <div class="font-bold text-lg">Courses</div>
-                        <div class="text-sm opacity-80">View enrolled units</div>
-                    </div>
-                </a>
-
-                <a href="#"
-                   class="w-full h-28 flex items-center gap-4 rounded-2xl bg-red-600 text-white px-6 shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300"
-                    <span class="text-3xl">📝</span>
-                    <div>
-                        <div class="font-bold text-lg">Assignments</div>
-                        <div class="text-sm opacity-80">Track coursework</div>
-                    </div>
-                </a>
-
-                <a href="#"
-                   class="w-full h-28 flex items-center gap-4 rounded-2xl bg-slate-700 text-white px-6 shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
-                    <span class="text-3xl">⚙️</span>
-                    <div>
-                        <div class="font-bold text-lg">Settings</div>
-                        <div class="text-sm opacity-80">Manage profile</div>
+    <div class="flex flex-col flex-1 overflow-hidden">   
         {{-- FEED --}}
-    <div id="feedBox" class="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-5 scroll-smooth">
+    <div id="feedBox" class="flex-1 overflow-y-auto px-6 py-4 space-y-3">
 
     @php $prevUser = null; @endphp
 
@@ -152,73 +96,88 @@
         {{-- DATE --}}
         @if($loop->first || $posts[$loop->index - 1]->created_at->format('Y-m-d') !== $post->created_at->format('Y-m-d'))
             <div class="flex justify-center">
-                <span class="text-xs bg-slate-700 text-slate-300 px-3 py-1 rounded-full">
+                <span class="text-xs bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-slate-300 px-3 py-1 rounded-full">
                     {{ $post->created_at->format('d M Y') }}
                 </span>
             </div>
         @endif
 
         {{-- POST --}}
-        <div class="flex {{ $isMine ? 'justify-end' : 'justify-start' }}">
+        <div class="flex {{ $isMine ? 'justify-end pl-16' : 'justify-start pr-16' }}">
 
-            <div class="max-w-[70%]">
+            <div class="max-w-[80%]">
 
                 @if(!$isMine && !$sameUser)
-                    <div class="text-xs text-slate-400 mb-1 ml-1">
-                        {{ $authorName }}
+                    <div class="text-xs font-semibold text-blue-500 mb-1 ml-2">
+                       {{ $authorName }}
                     </div>
                 @endif
 
-                {{-- CLICKABLE BUBBLE (THIS IS KEY CHANGE) --}}
-                <div
-                    class="bg-slate-800 rounded-2xl px-4 py-3 break-words cursor-pointer hover:bg-slate-700 transition"
-                    onclick="selectPost({{ $post->id }})"
-                    id="post-{{ $post->id }}">
+                {{-- CLICKABLE BUBBLE --}}
+                <div id="post-{{ $post->id }}"onclick="selectPost({{ $post->id }})" class=" {{ $isMine? 'bg-emerald-600 text-white rounded-br-md': 'bg-white dark:bg-slate-700 text-gray-900 dark:text-white rounded-bl-md' }} rounded-2xl px-4 py-3 shadow  cursor-pointer transition hover:shadow-lg max-w-xl">
 
 
                     {{-- TEXT --}}
                     @if($post->content)
-                        <div class="text-sm text-slate-100 leading-relaxed">
-                            {{ $post->content }}
+                        <div class="mt-3 text-[15px] leading-7 text-gray-900 dark:text-white whitespace-pre-wrap break-words font-normal rounded border-l border-slate-700 px-3 py-2">
+                          {{ $post->content }}
                         </div>
                     @endif
 
-                    {{-- COMMENTS PREVIEW (NO INPUT HERE ANYMORE) --}}
-                    @if($post->comments->count() > 0)
-                        <div class="mt-3 border-t border-slate-700 pt-3 space-y-2">
+                    {{-- COMMENTS --}}
+            @if($post->comments->count() > 0)
 
-                            @foreach($post->comments->take(2) as $comment)
-                                <div class="text-xs text-slate-300">
-                                    <span class="font-semibold text-slate-400">
-                                        {{ $comment->student->username ?? $comment->lecturer->name ?? 'User' }}:
-                                    </span>
-                                    {{ $comment->content }}
-                                </div>
-                            @endforeach
+               <div class="mt-3 border-t border-slate-700 pt-3">
 
-                            <div id="more-comments-{{ $post->id }}" class="hidden space-y-2">
-                                @foreach($post->comments->skip(2) as $comment)
-                                    <div class="text-xs text-slate-300">
-                                        <span class="font-semibold text-slate-400">
-                                            {{ $comment->student->username ?? $comment->lecturer->name ?? 'User' }}:
-                                        </span>
-                                        {{ $comment->content }}
-                                    </div>
-                                @endforeach
-                            </div>
+             {{-- Toggle --}}
+        <button
+            onclick="toggleComments(event, {{ $post->id }})"
+            class="text-sm text-slate-400 hover:text-white transition text-sm font-semibold">
+            💬{{ $post->comments->count() }}
+            {{ Str::plural('comment', $post->comments->count()) }}
+        </button>
 
-                            @if($post->comments->count() > 2)
-                                <button onclick="toggleComments(event, {{ $post->id }})"
-                                        class="text-[11px] text-blue-400 hover:underline">
-                                    View all comments ({{ $post->comments->count() }})
-                                </button>
-                            @endif
+        {{-- Comments Panel --}}
+        <div id="comments-{{ $post->id }}"
+             class="hidden mt-4 max-h-72 overflow-y-auto space-y-3">
 
+            @foreach($post->comments as $comment)
+                <div class="flex items-start gap-3">
+
+                    {{-- Avatar --}}
+                    <div
+                        class="w-8 h-8 rounded-full bg-sky-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                        {{ strtoupper(substr($comment->student->username ?? $comment->lecturer->name ?? 'U', 0, 1)) }}
+                    </div>
+
+                    {{-- Comment --}}
+                    <div class="flex-1">
+                        <div class="bg-gray-100 dark:bg-slate-700 rounded-2xl px-3 py-2">
+                            <p class="text-sm font-semibold text-black dark:text-white">
+                                {{ $comment->student->username ?? $comment->lecturer->name ?? 'User' }}
+                            </p>
+
+                            <p class="text-sm text-slate-200 whitespace-pre-wrap break-words">
+                                {{ $comment->content }}
+                            </p>
                         </div>
-                    @endif
+
+                        <p class="text-xs text-slate-400 mt-1 ml-2">
+                            {{ $comment->created_at->diffForHumans() }}
+                        </p>
+                    </div>
+
+                </div>
+            @endforeach
+
+        </div>
+
+    </div>
+
+@endif
 
                     {{-- TIME --}}
-                    <div class="text-[10px] text-slate-500 mt-2 text-right">
+                    <div class="text-[11px] opacity-70 mt-2 text-right">
                         {{ $post->created_at->format('H:i') }}
                     </div>
 
@@ -260,7 +219,7 @@
     </form>
 </div>
         {{-- INPUT --}}
-        <div class="flex-shrink-0 border-t border-slate-800 bg-slate-800 p-4">
+        <div class="flex-shrink-0 border-t border-slate-800 bg-white dark:bg-slate-800 p-4">
 
             <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -273,7 +232,7 @@
                     <input type="text"
                            name="content"
                            placeholder="Type a message..."
-                           class="flex-1 bg-slate-900 border border-slate-700 rounded-full px-4 py-3 text-sm text-white focus:ring-2 focus:ring-green-500">
+                           class="flex-1 bg-slate-900 border border-slate-700 rounded-full px-4 py-3 text-sm mt-2 whitespace-pre-wrap break-words text-[15px] leading-7 focus:ring-2 focus:ring-green-500">
 
                     <button type="submit"
                             class="w-11 h-11 rounded-full bg-green-600 hover:bg-green-700 flex items-center justify-center">
@@ -350,5 +309,13 @@
     document.getElementById('imageModal').onclick = () => {
         document.getElementById('imageModal').classList.add('hidden');
     };
+
+    function toggleComments(event, postId) {
+    event.preventDefault();
+
+    const panel = document.getElementById(`comments-${postId}`);
+
+    panel.classList.toggle('hidden');
+}
 </script>
 @endsection

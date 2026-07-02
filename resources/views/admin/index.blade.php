@@ -4,6 +4,7 @@
 <head>
     <title>Admin Panel - StrathConnect</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{{ asset('images/strathConnect.png') }}">
 </head>
 <body class="bg-gray-100">  
     <nav class="bg-white shadow p-4">

@@ -77,9 +77,9 @@
                     </div>
 
                     <div class="mt-4">
-                        <a href="#"
-                           class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">
-                            View Club
+                        <a href="{{ route('clubs.show', $club) }}"class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-sm font-medium transition">
+                           <i class="fas fa-eye"></i>
+                              View 
                         </a>
                     </div>
 
@@ -118,7 +118,7 @@
                                  class="w-10 h-10 rounded-full object-cover">
                         @else
                             <div class="w-10 h-10 rounded-full bg-green-100 dark:bg-slate-700 flex items-center justify-center font-bold text-green-700 dark:text-green-300">
-                                {{ strtoupper(substr($club->name, 0, 6)) }}
+                                {{ strtoupper(substr($club->name, 0, 1)) }}
                             </div>
                         @endif
 
@@ -156,7 +156,7 @@
                             @endauth
                         </form>
 
-                        <a href="#"
+                        <a href="{{ route('clubs.show', $club) }}"
                            class="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg text-sm">
                             View
                         </a>

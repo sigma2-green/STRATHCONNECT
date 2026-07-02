@@ -5,65 +5,49 @@
 
     <div class="text-center max-w-3xl w-full">
 
-        <!-- TITLE -->
-        <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight">
-            StrathConnect
-        </h1>
-
-        <p class="mt-5 text-lg text-gray-600">
-            The modern communication hub for students and lecturers at Strathmore University.
-        </p>
 
         <!-- BUTTONS -->
-        <div class="mt-10 flex justify-center gap-6 flex-wrap">
+ <div class="mt-10 flex justify-center gap-6 flex-wrap">
 
-            <!-- LOGIN -->
-            <a href="{{ route('student.login') }}"
-               class="w-44 h-40 flex flex-col items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg hover:scale-105 transition">
+    <!-- LOGIN -->
+    <a href="{{ route('student.login') }}"
+       class="w-48 h-44 flex flex-col items-center justify-center rounded-2xl bg-green-600 text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300">
 
-                <span class="text-3xl mb-2">🔐</span>
-                <span class="font-bold text-lg">Login</span>
-                <span class="text-xs opacity-80 mt-1">Access your account</span>
+        <i class="fas fa-right-to-bracket text-4xl mb-4"></i>
 
-            </a>
+        <span class="font-bold text-xl">Login</span>
+        <span class="text-sm text-blue-100 mt-1">
+            Access your account
+        </span>
 
-            <!-- SIGN UP -->
-            <a href="{{ route('student.register') }}"
-               class="w-44 h-40 flex flex-col items-center justify-center rounded-2xl bg-green-600 text-white shadow-lg hover:scale-105 transition">
+    </a>
 
-                <span class="text-3xl mb-2">📝</span>
-                <span class="font-bold text-lg">Sign Up</span>
-                <span class="text-xs opacity-80 mt-1">Create new account</span>
+    <!-- SIGN UP -->
+    <a href="{{ route('student.register') }}" class="w-48 h-44 flex flex-col items-center justify-center rounded-2xl bg-green-600 text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300">
 
-            </a>
+        <i class="fas fa-user-plus text-4xl mb-4"></i>
 
-            <!-- ADMIN LOGIN - ADD THIS -->
-            <a href="{{ route('admin.login') }}"
-               class="w-44 h-40 flex flex-col items-center justify-center rounded-2xl bg-gray-800 text-white shadow-lg hover:scale-105 transition">
+        <span class="font-bold text-xl">Sign Up</span>
+        <span class="text-sm text-green-100 mt-1">
+            Create an account
+        </span>
 
-                <span class="text-3xl mb-2">👑</span>
-                <span class="font-bold text-lg">Admin</span>
-                <span class="text-xs opacity-80 mt-1">Staff access only</span>
+    </a>
 
-            </a>
+    <!-- ADMIN LOGIN -->
+    <a href="{{ route('admin.login') }}"
+       class="w-48 h-44 flex flex-col items-center justify-center rounded-2xl bg-green-600 text-white shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300">
 
+        <i class="fas fa-user-shield text-4xl mb-4"></i>
 
+        <span class="font-bold text-xl">Admin</span>
+        <span class="text-sm text-slate-300 mt-1">
+            Staff access only
+        </span>
 
-<!-- HERO VIDEO -->
-<div class="mt-10 w-full">
-    <div class="relative overflow-hidden rounded-3xl shadow-2xl">
-        <!-- Can I have an appealing home page no video -->
-        <div class="p-10 text-center">
+    </a>
 
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to STRATHCONNECT</h1>
-            <p class="text-lg text-gray-600 mb-6">Access your groups, courses, and more.</p>
-        </div>
-                  
-
- 
-    
-
-    </div>
+</div>
 </div>
 </div>
 @endsection

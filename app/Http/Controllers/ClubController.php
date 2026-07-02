@@ -99,4 +99,9 @@ public function store(Request $request)
         ->route('clubs.index')
         ->with('success', 'Club created successfully!');
 }
+
+public function show(Club $club)
+{
+    return view('clubs.show', compact('club'));
+}
 }

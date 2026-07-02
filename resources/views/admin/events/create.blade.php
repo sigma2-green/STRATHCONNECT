@@ -3,6 +3,7 @@
 <head>
     <title>New Event</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{{ asset('images/strathConnect.png') }}">
 </head>
 
 <body class="bg-gray-100">

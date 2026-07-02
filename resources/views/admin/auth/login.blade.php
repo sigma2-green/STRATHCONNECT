@@ -3,6 +3,7 @@
 <head>
     <title>Admin Login - StrathConnect</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{{ asset('images/strathConnect.png') }}">
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen flex items-center justify-center">
@@ -23,12 +24,7 @@
                        class="w-full mb-4 p-2 border rounded" required autofocus>
                 <input type="password" name="password" placeholder="Password" 
                        class="w-full mb-4 p-2 border rounded" required>
-                <div class="mb-4">
-                    <label class="inline-flex items-center">
-                        <input type="checkbox" name="remember" class="mr-2">
-                        <span class="text-sm">Remember Me</span>
-                    </label>
-                </div>
+                
                 <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                     Login
                 </button>

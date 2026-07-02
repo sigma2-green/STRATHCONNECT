@@ -127,7 +127,7 @@
                             <span class="font-semibold">
 
                                 {{ $event->creatorStudent?->username
-                                    ?? $event->creatorLecturer?->username
+                                    ?? $event->creatorLecturer?->name
                                     ?? 'Unknown User' }}
 
                             </span>
@@ -209,12 +209,7 @@
                         {{-- Buttons --}}
                         <div class="mt-8 flex gap-3">
 
-                            <button
-                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold">
-
-                                View Details
-
-                            </button>
+                            
 
                             <button
                                 class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold">

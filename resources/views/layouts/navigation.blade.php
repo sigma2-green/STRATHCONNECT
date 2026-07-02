@@ -9,7 +9,7 @@
 
                 @auth('student')
                     <!-- USER AVATAR -->
-                    <div class="  text-white text-lg font-bold uppercase " style="font-family: 'Times New Roman', Times, serif;">
+                    <div class="  text-black dark:text-white text-lg font-bold uppercase " style="font-family: 'Times New Roman', Times, serif;">
                         {{ strtoupper(substr(Auth::guard('student')->user()->username,0,12)) }}
                     </div>
                 @else
@@ -60,7 +60,17 @@
                             Logout
                         </button>
                     </form>
+                     <!-- Theme Toggle -->
+    <button id="themeToggle"
+            class="w-10 h-10 flex items-center justify-center rounded-full
+                   bg-gray-200 dark:bg-slate-700
+                   hover:bg-gray-300 dark:hover:bg-slate-600
+                   transition duration-300"
+            title="Toggle Dark Mode">
 
+        <span id="themeIcon" class="text-lg">🌙</span>
+
+    </button>
                 @endauth
 
                 @guest
@@ -73,6 +83,18 @@
                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 border-black border-2 rounded-lg px-3 py-1">
                         Sign Up 
                     </a> 
+
+                     <!-- Theme Toggle -->
+    <button id="themeToggle"
+            class="w-10 h-10 flex items-center justify-center rounded-full
+                   bg-gray-200 dark:bg-slate-700
+                   hover:bg-gray-300 dark:hover:bg-slate-600
+                   transition duration-300"
+            title="Toggle Dark Mode">
+
+        <span id="themeIcon" class="text-lg">🌙</span>
+
+    </button>
                 @endguest
 
          

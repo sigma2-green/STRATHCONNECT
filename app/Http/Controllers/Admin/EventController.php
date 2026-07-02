@@ -10,7 +10,14 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::latest()->get();
+         $events = Event::with([
+                'creatorStudent',
+                'creatorLecturer',
+            ])
+            ->where('status', 'approved')
+            ->where('start_datetime', '>=', now())
+            ->orderBy('start_datetime', 'asc')
+            ->get();
         return view('admin.events.index', compact('events'));
     }
 
@@ -58,7 +65,7 @@ class EventController extends Controller
             'title',
             'description',
             'venue',
-            'event_date'
+            'event_date',
         ]));
 
         return redirect()->route('admin.events.index')

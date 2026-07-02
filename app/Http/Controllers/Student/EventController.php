@@ -4,11 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class EventController extends Controller
-{
-    //
-}
 use Illuminate\Support\Facades\Auth;
 use App\Models\Event;
 
