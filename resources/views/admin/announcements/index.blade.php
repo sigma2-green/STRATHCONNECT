@@ -1,10 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Announcements - Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="{{ asset('images/strathConnect.png') }}">
 </head>
 
 <body class="bg-gray-100">
@@ -24,11 +22,16 @@
                     Dashboard
                 </a>
 
-                <a href="{{ route('admin.events.index') }}"
+                <a href="{{ route('admin.students') }}"
                    class="text-blue-600 hover:text-blue-800">
-                    Events
+                    Students
                 </a>
-                
+
+                <a href="{{ route('admin.announcements.index') }}"
+                   class="font-semibold text-blue-700">
+                    Announcements
+                </a>
+
             </div>
 
             <form method="POST" action="{{ route('admin.logout') }}">
@@ -50,19 +53,19 @@
             <div>
 
                 <h1 class="text-3xl font-bold">
-                    📅 Events
+                    📢 Announcements
                 </h1>
 
                 <p class="text-gray-500 mt-2">
-                    Manage upcoming campus events.
+                    Manage announcements posted to students.
                 </p>
 
             </div>
 
-            <a href="{{ route('admin.events.create') }}"
+            <a href="{{ route('admin.announcements.create') }}"
                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg">
 
-                + New Event
+                + New Announcement
 
             </a>
 
@@ -77,15 +80,15 @@
             </div>
 
         @endif
-        @if($events->count() == 0)
+        @if($announcements->count() == 0)
 
     <div class="bg-yellow-100 border border-yellow-400 p-4 rounded">
-        No events have been posted yet.
+        No announcements have been posted yet.
     </div>
 
 @else
 
-    @foreach($events as $event)
+    @foreach($announcements as $announcement)
 
         <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6 mb-6">
 
@@ -94,17 +97,17 @@
                 <div>
 
                     <h2 class="text-2xl font-bold text-gray-800">
-                        {{ $event->title }}
+                        {{ $announcement->title }}
                     </h2>
 
                     <p class="text-sm text-gray-500 mt-1">
-                        Posted by <strong>{{ $event->creatorStudent?->username ?? $event->creatorLecturer?->name ?? 'Unknown User' }}</strong>
+                        Posted by <strong>{{ $announcement->posted_by }}</strong>
                     </p>
 
                 </div>
 
                 <div class="text-sm text-gray-400">
-                    {{ $event->created_at->format('d M Y') }}
+                    {{ $announcement->created_at->format('d M Y') }}
                 </div>
 
             </div>
@@ -112,24 +115,20 @@
             <hr class="my-4">
 
             <p class="text-gray-700 leading-7">
-                {{ $event->description }}
+                {{ $announcement->message }}
             </p>
-
-            <p class="text-sm text-slate-500 mt-3">
-                📍 {{ $event->venue }}
-            </p>
-
-            <p class="text-sm text-slate-500">
-                📅 {{ \Carbon\Carbon::parse($event->event_date)->format('d M Y') }}
-            </p>
-            
             <div class="flex gap-3 mt-6">
 
-            
+                <a href="{{ route('admin.announcements.edit', $announcement->id) }}"
+                    class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
 
-                <form action="{{ route('admin.events.destroy', $event->id) }}"
+                    Edit
+
+                </a>
+
+                <form action="{{ route('admin.announcements.destroy', $announcement->id) }}"
                     method="POST"
-                    onsubmit="return confirm('Are you sure you want to delete this event?');">
+                    onsubmit="return confirm('Are you sure you want to delete this announcement?');">
 
                     @csrf
                     @method('DELETE')

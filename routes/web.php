@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,13 @@ use App\Http\Controllers\StudentRegisterController;
 use App\Http\Controllers\StudentLoginController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Student\AnnouncementController as StudentAnnouncementController;
+use App\Http\Controllers\Lecturer\AnnouncementController as LecturerAnnouncementController;
+use App\Http\Controllers\Lecturer\EventController as LecturerEventController;
+use App\Http\Controllers\Lecturer\PostController as LecturerPostController;
+
+
 use App\Http\Controllers\Student\PostController;
 use App\Http\Controllers\Student\CommentController; // ✅ FIXED
 use App\Http\Controllers\Student\EventController; // ✅ NEW
@@ -40,7 +47,7 @@ Route::get('/', fn () => view('home'))->name('home');
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('guest:student')->group(function () {
+Route::group([], function () {
 
     Route::get('/student/register', fn () => view('auth.register'))
         ->name('student.register');
@@ -64,6 +71,12 @@ Route::middleware('guest:student')->group(function () {
 Route::middleware('auth:student')->group(function () {
 
 
+    Route::get('/student/announcements',
+        [StudentAnnouncementController::class, 'index'])
+        ->name('student.announcements');
+
+    Route::post('/student/logout', [StudentLoginController::class, 'logout'])
+        ->name('student.logout');
     Route::put('/password', [PasswordController::class, 'update'])
     ->name('password.update');
 
@@ -72,6 +85,9 @@ Route::middleware('auth:student')->group(function () {
     | CLUBS
     |--------------------------------------------------------------------------
     */
+
+    Route::get('/clubs/{club}', [ClubController::class, 'show'])
+    ->name('clubs.show');
 
     Route::get('/clubs', [ClubController::class, 'index'])
         ->name('clubs.index');
@@ -226,7 +242,35 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('events/{event}/approve', [DashboardController::class, 'approveEvent'])->name('events.approve');
         Route::post('events/{event}/reject', [DashboardController::class, 'rejectEvent'])->name('events.reject'); 
         Route::delete('events/{event}', [DashboardController::class, 'deleteEvent'])->name('events.delete');
+        Route::get('students', [DashboardController::class, 'students'])->name('students'); 
+        Route::get('announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+        Route::get('announcements/create', [AnnouncementController::class, 'create'])
+            ->name('announcements.create');
+        Route::post('announcements', [AnnouncementController::class, 'store'])
+            ->name('announcements.store');
+        Route::get('announcements/{announcement}/edit', [AnnouncementController::class, 'edit'])
+            ->name('announcements.edit');
+        Route::put('announcements/{announcement}', [AnnouncementController::class, 'update'])
+            ->name('announcements.update');
+        Route::delete('announcements/{announcement}', [AnnouncementController::class, 'destroy'])
+            ->name('announcements.destroy');
+        Route::get('events', [\App\Http\Controllers\Admin\EventController::class, 'index'])
+            ->name('events.index');
+        Route::get('events/create', [\App\Http\Controllers\Admin\EventController::class, 'create'])
+            ->name('events.create');
+        Route::post('events', [\App\Http\Controllers\Admin\EventController::class, 'store'])
+            ->name('events.store');
+        Route::get('events/{event}/edit', [\App\Http\Controllers\Admin\EventController::class, 'edit'])
+            ->name('events.edit');
+        Route::put('events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'update'])
+            ->name('events.update');
+        Route::delete('events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'destroy'])
+            ->name('events.destroy');
+        Route::get('students/{id}/edit', [DashboardController::class, 'edit'])->name('students.edit');  
+        Route::put('students/{id}', [DashboardController::class, 'update'])->name('students.update');
+        Route::delete('students/{id}', [DashboardController::class, 'destroy'])->name('students.destroy');
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    
     });
 
     
@@ -244,6 +288,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 Route::middleware('guest:lecturer')->group(function () {
+
+   
 
     Route::get('/lecturer/sign-up', fn () => view('lecturer.sign-up'))
         ->name('lecturer.register');
@@ -263,21 +309,92 @@ Route::middleware('guest:lecturer')->group(function () {
 
 Route::middleware('auth:lecturer')->group(function () {
 
-    Route::get('/lecturer/dashboard', [LecturerDashboardController::class, 'index'])
-        ->name('lecturer.dashboard');
 
-     Route::get('lecturer/events', [EventController::class, 'index'])
-        ->name('lecturer.event.index');
+    Route::get('/lecturer/events', [LecturerEventController::class, 'index'])
+        ->name('lecturer.events.index');
+    
+    Route::get('/lecturer/events/create', [LecturerEventController::class, 'create'])
+        ->name('lecturer.events.create');
+    
+    Route::post('/lecturer/events', [LecturerEventController::class, 'store'])
+        ->name('lecturer.events.store');
+    
+    
+    
 
-    Route::get('/lecturer/events/create', [EventController::class, 'create'])
-        ->name('lecturer.event.create');
 
-    Route::post('/lecturer/events', [EventController::class, 'store'])
-        ->name('lecturer.event.store');
+    Route::get('/lecturer/announcements',
+        [LecturerAnnouncementController::class, 'index'])
+        ->name('lecturer.announcements');
+
+     /*
+    | POSTS
+    */
+    Route::post('/lecturer/posts', [LecturerPostController::class, 'store'])
+        ->name('lecturer.posts.store');
+
+    /*
+    | COMMENTS (FIXED)
+    */
+    Route::post('/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
+    
+
+    Route::get('/lecturer/dashboard', function (Request $request) {
+       $lecturer = Auth::guard('lecturer')->user();
+
+        // GROUPS
+        $baseQuery = fn($type) => Group::where('type', $type)
+            ->where('school', $lecturer->school);
+
+        $schoolGroups = (clone $baseQuery('school'))->get();
+
+        $courseGroups = (clone $baseQuery('course'))
+            ->where('course', $lecturer->course)
+            ->get();
+
+        /*
+        | SELECTED GROUP + POSTS + COMMENTS (FIXED)
+        */
+        $selectedGroup = null;
+        $posts = collect();
+    
+
+
+
+        if ($request->filled('group')) {
+
+            $selectedGroup = Group::find($request->group);
+
+
+            if ($selectedGroup) {
+                $posts = Post::with([
+                        'student',
+                        'lecturer',
+                        'comments.student',
+                        'comments.lecturer'
+                    ])
+                    ->where('group_id', $selectedGroup->id)
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+            }
+           
+        }
+
+        return view('lecturer.dashboard', compact(
+            'schoolGroups',
+            'courseGroups',
+            'selectedGroup',
+            'posts',
+        ));
+    })->name('lecturer.dashboard');
 
     Route::post('/lecturer/logout', [LecturerLoginController::class, 'logout'])
         ->name('lecturer.logout');
+
 });
+
+
 
     
 

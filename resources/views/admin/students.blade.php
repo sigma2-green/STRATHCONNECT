@@ -3,6 +3,7 @@
 <head>
     <title>Students - Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{{ asset('images/strathConnect.png') }}">
 </head>
 <body class="bg-gray-100">
     <nav class="bg-white shadow p-4">
@@ -20,6 +21,12 @@
     </nav>
     
     <div class="max-w-7xl mx-auto p-6">
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <h2 class="text-2xl font-bold mb-6">All Students</h2>
         
         @if($students->isEmpty())
@@ -38,6 +45,7 @@
                             <th class="px-6 py-3 text-left">School</th>
                             <th class="px-6 py-3 text-left">Course</th>
                             <th class="px-6 py-3 text-left">Group</th>
+                            <th class="px-6 py-3 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -50,6 +58,31 @@
                             <td class="px-6 py-4">{{ $student->school ?? 'N/A' }}</td>
                             <td class="px-6 py-4">{{ $student->course ?? 'N/A' }}</td>
                             <td class="px-6 py-4">{{ $student->class_group ?? 'N/A' }}</td>
+                            <td class="px-6 py-4">{{ $student->group ?? 'N/A' }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+
+                                <a href="{{ route('admin.students.edit', $student->id) }}"
+                                     class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">
+                                     Edit
+                                </a>
+
+                                <form action="{{ route('admin.students.destroy', $student->id) }}"
+                                        method="POST"
+                                        style="display:inline;">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                            onclick="return confirm('Are you sure you want to delete this student?')"
+                                            class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">
+                                         Delete
+                                    </button>
+
+                                </form>
+
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
